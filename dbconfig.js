@@ -8,7 +8,7 @@ const config = {
     options: {
         trustServerCertificate:true,
 
-        trustedConnection:true
+        trustedConnection:true,
    }
 }
 export default config;
