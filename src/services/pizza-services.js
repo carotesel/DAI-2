@@ -1,35 +1,35 @@
 import config from '../../dbconfig.js';
 import sql from 'mssql';
 
-class PizzaService{
+class PizzaService {
 
     getAll = async () => {
-        
-        let returnArray = null; 
+
+        let returnArray = null;
 
         try {
-            let pool = await sql.connect(config); 
-            let result = await pool.request().query ("SELECT * from Pizzas"); 
+            let pool = await sql.connect(config);
+            let result = await pool.request().query("SELECT * from Pizzas");
             returnArray = result.recordsets[0];
-        
+            return returnArray;
         } catch (error) {
-            console.log(error); 
+            console.log(error);
         }
-        return returnArray;
+
     }
 
     getById = async (id) => {
-        
-        let returnEntity = null; 
+
+        let returnEntity = null;
 
         try {
-            
-            let pool = await sql.connect(config); 
-            let result = pool.request()
-                            .input('pId', sql.Int, id)
-                            .query("SELECT * from Pizzas WHERE id = @pId");
-            returnEntity =  result.recordset;        
-            
+
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input('pId', sql.Int, id)
+                .query("SELECT * from Pizzas WHERE id = @pId");
+            returnEntity = result.recordset;
+
             return returnEntity;
 
         } catch (error) {
@@ -48,7 +48,7 @@ class PizzaService{
                 .query("INSERT INTO Pizzas (nombre, libreGluten, importe, descripcion) VALUES (@nombre, @libreGluten, @importe, @descripcion)");
             return result.rowsAffected;
         }
-        catch (error){
+        catch (error) {
             console.log(error);
         }
 
