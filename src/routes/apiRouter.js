@@ -1,30 +1,32 @@
 import { Router } from 'express';
 import PizzaService from "../services/pizza-services.js";
+import Pizza from "../models/pizza.js";
 
 const apiRouter = Router();
 const service = new PizzaService();
+const pizza = new Pizza();
 
 apiRouter.get("/", async (req, res) => {
     const allPizzas = await service.getAll();
-    res.json(allPizzas);
+    res.json(allPizzas).status(200);
 })
 
 apiRouter.get("/:id", async (req, res) => {
     const id = req.params.id;
     const pizza = await service.getById(id);
-    res.json(pizza);
+    res.json(pizza).status(200);
 })
 
-apiRouter.post("/", async (req, res) => {
+apiRouter.post('', async (req, res) => {
     const pizza = req.body;
-    const insertedPizza = await service.insert(pizza);
-    res.json(insertedPizza);
+    const insertedPizza = await service.insert(req.body);
+    res.status(201).json(insertedPizza);
 })
 
 apiRouter.put("/:id", async (req, res) => {
     const id = req.params.id;
     const pizza = req.body;
-    const updatedPizza = await service.update(pizza);
+    const updatedPizza = await service.update(req.body);
     res.json(updatedPizza);
 })
 

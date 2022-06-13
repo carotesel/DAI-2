@@ -1,5 +1,6 @@
 import config from '../../dbconfig.js';
 import sql from 'mssql';
+import pizza from "../models/pizza.js"
 
 class PizzaService {
 
