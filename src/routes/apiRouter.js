@@ -20,7 +20,7 @@ apiRouter.get("/:id", async (req, res) => {
 apiRouter.post('', async (req, res) => {
     const pizza = req.body;
     const insertedPizza = await service.insert(req.body);
-    res.status(201).json(insertedPizza);
+    res.json(insertedPizza).status(201);
 })
 
 apiRouter.put("/:id", async (req, res) => {
